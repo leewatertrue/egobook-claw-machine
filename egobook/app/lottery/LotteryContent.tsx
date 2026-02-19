@@ -37,7 +37,7 @@ export default function LotteryContent() {
   const router      = useRouter()
   const entryId     = searchParams.get('id')
 
-  const [prizes,      setPrizes]      = useState({ rank2: 40, rank3: 60 })
+  const [prizes,      setPrizes]      = useState({ rank1: 1, rank2: 40, rank3: 60 })
   const [phase,       setPhase]       = useState<Phase>('idle')
   const [prizeResult, setPrizeResult] = useState<number | null>(null)
 
@@ -49,6 +49,7 @@ export default function LotteryContent() {
       const { data: pd } = await supabase.from('prizes').select('rank, remaining')
       if (pd) {
         setPrizes({
+          rank1: pd.find(p => p.rank === 1)?.remaining ?? 1,
           rank2: pd.find(p => p.rank === 2)?.remaining ?? 40,
           rank3: pd.find(p => p.rank === 3)?.remaining ?? 60,
         })
@@ -93,6 +94,7 @@ export default function LotteryContent() {
     const { data: fresh } = await supabase.from('prizes').select('rank, remaining')
     if (fresh) {
       setPrizes({
+        rank1: fresh.find(p => p.rank === 1)?.remaining ?? prizes.rank1,
         rank2: fresh.find(p => p.rank === 2)?.remaining ?? prizes.rank2,
         rank3: fresh.find(p => p.rank === 3)?.remaining ?? prizes.rank3,
       })
@@ -120,7 +122,7 @@ export default function LotteryContent() {
       {/* ── Prize counter badges ── */}
       <div style={{ display: 'flex', gap: 10, marginBottom: 28 }}>
         {[
-          { emoji: '🏆', label: '1등', count: 1,            gold: true  },
+          { emoji: '🏆', label: '1등', count: prizes.rank1, gold: true  },
           { emoji: '🥈', label: '2등', count: prizes.rank2, gold: false },
           { emoji: '🥉', label: '3등', count: prizes.rank3, gold: false },
         ].map((p, i) => (
