@@ -1,0 +1,51 @@
+@import "tailwindcss";
+
+:root {
+  --background: #f0fdf4;
+  --foreground: #1a1a1a;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+}
+
+@keyframes float-ball {
+  0%, 100% { transform: translateY(0px) translateX(0px) rotate(0deg); }
+  20%       { transform: translateY(-14px) translateX(6px) rotate(8deg); }
+  40%       { transform: translateY(-5px)  translateX(-8px) rotate(-5deg); }
+  60%       { transform: translateY(-18px) translateX(4px) rotate(10deg); }
+  80%       { transform: translateY(-9px)  translateX(-5px) rotate(-4deg); }
+}
+
+@keyframes machine-shake {
+  0%, 100% { transform: translateX(0) rotate(0deg); }
+  10%      { transform: translateX(-7px) rotate(-1.5deg); }
+  20%      { transform: translateX(7px)  rotate(1.5deg); }
+  30%      { transform: translateX(-5px) rotate(-1deg); }
+  40%      { transform: translateX(5px)  rotate(1deg); }
+  50%      { transform: translateX(-3px) rotate(-0.5deg); }
+  60%      { transform: translateX(3px)  rotate(0.5deg); }
+  70%      { transform: translateX(-2px); }
+  80%      { transform: translateX(2px); }
+  90%      { transform: translateX(-1px); }
+}
+
+@keyframes capsule-appear {
+  0%   { transform: translateY(-30px) scale(0.4); opacity: 0; }
+  55%  { transform: translateY(6px)   scale(1.08); opacity: 1; }
+  100% { transform: translateY(0)     scale(1);    opacity: 1; }
+}
+
+@keyframes result-reveal {
+  0%   { transform: scale(0) rotate(-12deg); opacity: 0; }
+  60%  { transform: scale(1.12) rotate(4deg); opacity: 1; }
+  100% { transform: scale(1)    rotate(0deg); opacity: 1; }
+}
+
+@keyframes sparkle-spin {
+  from { transform: rotate(0deg) scale(0); opacity: 0; }
+  50%  { opacity: 1; }
+  to   { transform: rotate(360deg) scale(1); opacity: 0; }
+}
